@@ -23,14 +23,26 @@ class User(AbstractBaseUser, DataTimeMixin, PermissionsMixin):
     is_staff = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
 
+
     class Meta:
         verbose_name = _("user")
         verbose_name_plural = _("users")
 
 
 
-# class Task(models.Model):
-#     pass
+class Task(models.Model):
+    STATUS = (("new", "New"), ("in_progress", "In progress"), ("completed", "Completed"))
+    task_name = models.CharField(max_length=100, blank=False)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    status = models.CharField(max_length=20, choices=STATUS, default="New")
+
+    def __str__(self):
+        return f"{self.pk} - {self.task_name}"
+
+    class Meta:
+        verbose_name = _("task")
+        verbose_name_plural = _("tasks")
+
 
 
 
