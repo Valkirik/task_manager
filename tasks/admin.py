@@ -1,6 +1,7 @@
 from django.contrib import admin
-from .models import User
+from .models import User, Task
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+
 
 @admin.register(User)
 class CustomUserAdmin(BaseUserAdmin):
@@ -24,5 +25,7 @@ class CustomUserAdmin(BaseUserAdmin):
         ),
     )
 
+
+admin.site.register(Task)
 
 
