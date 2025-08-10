@@ -18,6 +18,11 @@ class UserViewSet(viewsets.ModelViewSet):
 
 
 #working with one element
+
+class TaskRetrieveAPIView(RetrieveAPIView): #get one
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
+
 class TaskCreateAPIView(CreateAPIView): #create one
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
@@ -26,40 +31,40 @@ class TaskRetrieveUpdateDestroyAPIView(RetrieveUpdateDestroyAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
+class TaskRetrieveUpdateAPIView(RetrieveUpdateAPIView): #update a certain task #
+    queryset = Task.objects.all()
+    serializer_class = TaskSerializer
 
 class TaskDestroyAPIView(DestroyAPIView): #delete one
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
-class TaskRetrieveAPIView(RetrieveAPIView): #get one
-    queryset = Task.objects.all()
-    serializer_class = TaskSerializer
 
 
 #showing the list
-class TaskListSQLAPIView(APIView): #get the lise
+class TaskListSQLAPIView(APIView): #get the list with all tasks
     def get(self, request):
         return Response(get_all_tasks())
 
-class TaskInProgressSQLAPIview(APIView):
+class TaskInProgressSQLAPIview(APIView): #get the list with tasks in progress
     def get(self, request):
         return Response(tasks_in_progress())
 
-class TaskCompletedSQLAPIview(APIView):
+class TaskCompletedSQLAPIview(APIView): #get the list with completed status
     def get(self, request):
         return Response(tasks_is_completed())
 
-class TaskInprogressIntoCompletedSQLAPIview(APIView):
+class TaskInprogressIntoCompletedSQLAPIview(APIView): #turn status inProgress into Completed
     def post(self, request):
         updated = in_progress_into_completed()
         return Response({"updated": updated})
 
-class TaskNewIntoInProgressSQLAPIview(APIView):
+class TaskNewIntoInProgressSQLAPIview(APIView): #turn status new into inProgress
     def post(self, request):
         updated = new_into_in_progress()
         return Response({"updated": updated})
 
-class CountTaskByStatusSQLAPIview(APIView) :
+class CountTaskByStatusSQLAPIview(APIView): #how many tasks of certain status
     def get(self, request):
         return Response(tasks_by_status())
 
@@ -69,11 +74,8 @@ class TasklistCreateAPIView(ListCreateAPIView): #create the list of tasks
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
-class TaskRetrieveUpdateAPIView(RetrieveUpdateAPIView): #
-    queryset = Task.objects.all()
-    serializer_class = TaskSerializer
 
-class TaskRetrieveDestroyAPIView(RetrieveDestroyAPIView):
+class TaskRetrieveDestroyAPIView(RetrieveDestroyAPIView): #delete one task
     queryset = Task.objects.all()
     serializer_class = TaskSerializer
 
