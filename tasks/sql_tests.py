@@ -1,22 +1,41 @@
 from django.db import connection
+from django.db.models.expressions import result
+
 
 #getting tasks
 
+#прописал в каждой функции одинаковый кусок просто для понимания (без вывода этого куска в отдельную функцию)
 def get_all_tasks():
     with connection.cursor() as cursor:
         cursor.execute("SELECT id, task_name, status FROM tasks_task")
-        return cursor.fetchall()
+        columns = [] #here we got all names fo the columns (id, name ...)
+        for col in cursor.description:
+            columns.append(col[0])  #getting the name of the columns (keys)
+        rows = cursor.fetchall() #getting the value of the certain colum
+        result = [dict(zip(columns, row)) for row in rows]
+        return result
 
 
 def tasks_in_progress():
     with connection.cursor() as cursor:
         cursor.execute("SELECT id, task_name FROM tasks_task WHERE status = 'in_progress'")
-        return cursor.fetchall()
+        columns = []
+        for col in cursor.description:
+            columns.append(col[0])
+        rows = cursor.fetchall()
+        result = [dict(zip(columns, rows)) for row in rows]
+        return result
+
 
 def tasks_is_completed():
     with connection.cursor() as cursor:
         cursor.execute("SELECT id, task_name FROM tasks_task WHERE status = 'completed'")
-        return cursor.fetchall()
+        columns = []
+        for col in cursor.description:
+            columns.append(col[0])
+        rows = cursor.fetchall()
+        result = [dict(zip(columns, rows)) for row in rows]
+        return result
 
 
 #update status
@@ -44,12 +63,23 @@ def delete_all_tasks():
 def tasks_by_user():
     with connection.cursor() as cursor:
         cursor.execute("SELECT user_id, COUNT(*) FROM tasks_task GROUP BY user_id")
-        return cursor.fetchall()
+        columns = []
+        for col in cursor.description:
+            columns.append(col[0])
+        rows = cursor.fetchall()
+        result = [dict(zip(columns, rows)) for row in rows]
+        return result
+
 
 def tasks_by_status():
     with connection.cursor() as cursor:
         cursor.execute("SELECT status, COUNT(*) FROM tasks_task GROUP BY status")
-        return cursor.fetchall()
+        columns = []
+        for col in cursor.description:
+            columns.append(col[0])
+        rows = cursor.fetchall()
+        result = [dict(zip(columns, rows)) for row in rows]
+        return result
 
 
 
