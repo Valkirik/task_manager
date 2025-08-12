@@ -1,14 +1,14 @@
-from django.urls import path, include
-
-
-from .endpoints import UserViewSet, TaskCreateAPIView, \
-    TaskDestroyAPIView, TaskRetrieveAPIView, TaskListSQLAPIView, \
-    TasklistCreateAPIView, TaskRetrieveUpdateAPIView, \
-    TaskRetrieveDestroyAPIView, TaskRetrieveUpdateDestroyAPIView, TaskInProgressSQLAPIview, \
-    TaskInprogressIntoCompletedSQLAPIview, \
-    TaskNewIntoInProgressSQLAPIview, CountTaskByStatusSQLAPIview, TaskCompletedSQLAPIview
-
+from django.urls import include, path
 from rest_framework import routers
+
+from .endpoints import (CountTaskByStatusSQLAPIview, TaskCompletedSQLAPIview,
+                        TaskCreateAPIView, TaskDestroyAPIView,
+                        TaskInprogressIntoCompletedSQLAPIview,
+                        TaskInProgressSQLAPIview, TasklistCreateAPIView,
+                        TaskListSQLAPIView, TaskNewIntoInProgressSQLAPIview,
+                        TaskRetrieveAPIView, TaskRetrieveDestroyAPIView,
+                        TaskRetrieveUpdateAPIView,
+                        TaskRetrieveUpdateDestroyAPIView, UserViewSet)
 
 router = routers.SimpleRouter()
 router.register("users", UserViewSet)
@@ -26,9 +26,9 @@ urlpatterns = [
     path("task-list-create/", TasklistCreateAPIView.as_view()),
     path("task-detail-update/<int:pk>/", TaskRetrieveUpdateAPIView.as_view()),
     path("task-detail-destroy/<int:pk>/", TaskRetrieveDestroyAPIView.as_view()),
-    path("task-detail-update-destroy/<int:pk>/", TaskRetrieveUpdateDestroyAPIView.as_view()),
-
-    path("", include(router.urls))
+    path(
+        "task-detail-update-destroy/<int:pk>/",
+        TaskRetrieveUpdateDestroyAPIView.as_view(),
+    ),
+    path("", include(router.urls)),
 ]
-
-
