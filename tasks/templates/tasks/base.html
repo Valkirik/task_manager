@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Task Manager{% endblock %}</title>
+</head>
+<body>
+        <header>
+            <h1>Task Manager</h1>
+            <nav>
+                <a href="{% url 'home' %}">Main</a>
+                <a href="{% url 'tasks_list' %}">Tasks list</a>
+            </nav>
+        </header>
+
+        <hr>
+        {% block content %}{% endblock %}
+
+</body>
+</html>
