@@ -23,4 +23,5 @@ urlpatterns = [
     path("", views.base_demo, name='base_demo'),
     path("home/", views.tasks_home, name='home'),
     path("tasks_list/", views.tasks_list, name='tasks_list'),
+    path("tasks/<int:pk>", views.task_detail, name="task_detail")
 ]

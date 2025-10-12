@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User
+from .models import User, Task
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
 @admin.register(User)
@@ -23,6 +23,9 @@ class CustomUserAdmin(BaseUserAdmin):
             'fields': ('email', 'first_name', 'last_name', 'password1', 'password2', 'is_staff', 'is_active')}
         ),
     )
+
+
+admin.site.register(Task)
 
 
 
