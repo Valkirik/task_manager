@@ -2,7 +2,7 @@ from django.shortcuts import render
 from .models import Task
 from django.shortcuts import get_object_or_404
 from .forms import TaskForm
-from django.views.generic import CreateView, DeleteView
+from django.views.generic import CreateView, DeleteView, ListView
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -35,3 +35,30 @@ class TaskDeleteView(DeleteView, LoginRequiredMixin):
     template_name = "tasks/confirm_delete.html"
     success_url = reverse_lazy("tasks_list")
     context_object_name = "task"
+
+
+class TaskNewView(ListView):
+    model = Task
+    template_name = 'tasks/tasks_list.html'
+    context_object_name = "tasks"
+
+    def get_queryset(self):
+        return Task.objects.filter(status="new").order_by("-id")
+
+
+class TaskInProgressView(ListView):
+    model = Task
+    template_name = 'tasks/tasks_list.html'
+    context_object_name = "tasks"
+
+    def get_queryset(self):
+        return Task.objects.filter(status="in_progress").order_by("-id")
+
+
+class TaskCompletedView(ListView):
+    model = Task
+    template_name = 'tasks/tasks_list.html'
+    context_object_name = "tasks"
+
+    def get_queryset(self):
+        return Task.objects.filter(status="completed").order_by("-id")

@@ -4,7 +4,12 @@
 
 {% block content %}
 <h2>The list of the tasks</h2>
-<p><a href="{% url 'create_task'%}"> Add task </a></p>
+<nav>
+    <p><a href="{% url 'create_task' %}"> Add task </a></p>
+    <p><a href="{% url 'tasks_new' %}"> New tasks </a></p>
+    <p><a href="{% url 'tasks_in_progress' %}"> Tasks in progress </a></p>
+    <p><a href="{% url 'tasks_completed' %}"> Completed tasks </a></p>
+</nav>
 <table>
     <tr>
         <th>ID</th>
